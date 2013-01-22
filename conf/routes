@@ -5,5 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index()
 
+# Produtos
+GET	    /produtos                   controllers.Produtos.blank()
+GET     /produtos/:id               controllers.Produtos.edit(id: Long)
+POST    /produtos                   controllers.Produtos.submit()
+GET     /produtos/:id/delete        controllers.Produtos.delete(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
