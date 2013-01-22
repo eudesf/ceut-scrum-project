@@ -4,9 +4,32 @@
 
 	@helper.form(action = routes.ItensBacklog.create(produtoId)) {
 		@helper.inputText(form("nome"), '_label -> "Nome:")
-	
+		@helper.inputText(form("descricao"), '_label -> "Descrição:")
+		@helper.inputText(form("descricao"), '_label -> "Descrição:")
+		@helper.inputText(form("notas"), '_label -> "Notas:")
+		@helper.inputText(form("importancia"), '_label -> "Importância:")
+		@helper.inputText(form("estimativa"), '_label -> "Estimativa:")
+		
+		<button type="submit">Salvar</button>
 	}
 	
+	
+	<table>
+		<thead>
+			<tr>
+				<td>Nome</td>
+				<td>Descrição</td>
+			</tr>
+		</thead>
+		<tbody>
+			@itens.map { item =>
+				<tr>
+					<td>@item.nome</td>
+					<td>@item.descricao</td>
+				</tr>	
+			}
+		</tbody>
+	</table>
 	
 
 }
