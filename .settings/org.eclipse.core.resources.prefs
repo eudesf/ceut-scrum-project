@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//app/views/index.scala.html=UTF-8
-encoding//app/views/produtos/form.scala.html=UTF-8
+encoding//app/views/produtos/editForm.scala.html=UTF-8
+encoding//app/views/produtos/index.scala.html=UTF-8
 encoding/<project>=UTF-8

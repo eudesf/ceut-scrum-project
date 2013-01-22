@@ -1,0 +1,12 @@
+@(produtoId: Long, form: Form[ItemBacklog], itens: List[ItemBacklog])
+
+@main("") {
+
+	@helper.form(action = routes.ItensBacklog.create(produtoId)) {
+		@helper.inputText(form("nome"), '_label -> "Nome:")
+	
+	}
+	
+	
+
+}

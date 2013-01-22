@@ -1,0 +1,13 @@
+@(id: Long, form: Form[Produto], produtos: List[Produto])
+
+@main("Welcome to Play 2.0") {
+    
+    @helper.form(action = routes.Produtos.update(id)) {
+	
+		@helper.inputText(form("nome"), '_label -> "Nome:")
+		@helper.inputText(form("descricao"), '_label -> "Descrição:")
+    
+    	<button type="submit">Salvar</button>
+    }
+    
+}
