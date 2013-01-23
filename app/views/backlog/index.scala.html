@@ -5,27 +5,34 @@
 	@helper.form(action = routes.ItensBacklog.create(produtoId)) {
 		@helper.inputText(form("nome"), '_label -> "Nome:")
 		@helper.inputText(form("descricao"), '_label -> "Descrição:")
-		@helper.inputText(form("descricao"), '_label -> "Descrição:")
 		@helper.inputText(form("notas"), '_label -> "Notas:")
 		@helper.inputText(form("importancia"), '_label -> "Importância:")
 		@helper.inputText(form("estimativa"), '_label -> "Estimativa:")
 		
 		<button type="submit">Salvar</button>
 	}
-	
-	
+
 	<table>
 		<thead>
 			<tr>
-				<td>Nome</td>
+				<td>Opções</td>
+				<td><a href="@routes.ItensBacklog.index(produtoId, "nome")">Nome</a></td>
 				<td>Descrição</td>
+				<td>Notas</td>
+				<td><a href="@routes.ItensBacklog.index(produtoId, "importancia")">Importância</a></td>
+				<td>Estimativa</td>
 			</tr>
 		</thead>
 		<tbody>
 			@itens.map { item =>
 				<tr>
+					<td><a href="@routes.ItensBacklog.delete(item.id)">Excluir</a>
+						<a href="@routes.ItensBacklog.editForm(item.id)">Editar</a></td>
 					<td>@item.nome</td>
 					<td>@item.descricao</td>
+					<td>@item.notas</td>
+					<td>@item.importancia</td>
+					<td>@item.estimativa</td>
 				</tr>	
 			}
 		</tbody>

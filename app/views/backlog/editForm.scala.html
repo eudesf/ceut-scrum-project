@@ -1,0 +1,15 @@
+@(id: Long, form: Form[ItemBacklog])
+
+@main("Welcome to Play 2.0") {
+    
+    @helper.form(action = routes.ItensBacklog.update(id)) {
+		@helper.inputText(form("nome"), '_label -> "Nome:")
+		@helper.inputText(form("descricao"), '_label -> "Descrição:")
+		@helper.inputText(form("notas"), '_label -> "Notas:")
+		@helper.inputText(form("importancia"), '_label -> "Importância:")
+		@helper.inputText(form("estimativa"), '_label -> "Estimativa:")
+		
+		<button type="submit">Salvar</button>
+    }
+    
+}

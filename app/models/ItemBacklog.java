@@ -6,7 +6,6 @@ import javax.persistence.ManyToOne;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 
 @Entity
 public class ItemBacklog extends Model {
@@ -20,7 +19,6 @@ public class ItemBacklog extends Model {
 	public Produto produto;
 	
 	@Constraints.Required
-	@Constraints.Max(60)
 	public String nome;
 	
 	public String descricao;

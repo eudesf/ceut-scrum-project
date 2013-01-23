@@ -3,18 +3,23 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                             controllers.Application.index()
 
 # Produtos
-GET	    /produtos                   controllers.Produtos.blank()
-GET     /produtos/:id/delete        controllers.Produtos.delete(id: Long)
-POST    /produtos                   controllers.Produtos.create()
-GET     /produtos/:id               controllers.Produtos.editForm(id: Long)
-POST    /produtos/:id               controllers.Produtos.update(id: Long)
+GET	    /produtos                     controllers.Produtos.blank()
+GET     /produtos/:id/delete          controllers.Produtos.delete(id: Long)
+POST    /produtos                     controllers.Produtos.create()
+GET     /produtos/:id                 controllers.Produtos.editForm(id: Long)
+POST    /produtos/:id                 controllers.Produtos.update(id: Long)
 
 # Itens de Backlog
-GET     /backlog/:produtoId         controllers.ItensBacklog.index(produtoId: Long)
-POST    /backlog/:produtoId         controllers.ItensBacklog.create(produtoId: Long)
+GET     /backlog/:produtoId           controllers.ItensBacklog.index(produtoId: Long, orderBy ?= "nome asc")
+POST    /backlog/:produtoId           controllers.ItensBacklog.create(produtoId: Long)
+GET     /backlog/item/:id/delete      controllers.ItensBacklog.delete(id: Long)
+GET     /backlog/item/:id             controllers.ItensBacklog.editForm(id: Long)
+POST    /backlog/item/:id             controllers.ItensBacklog.update(id: Long)
+
+
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                 controllers.Assets.at(path="/public", file)
