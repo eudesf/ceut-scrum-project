@@ -29,10 +29,10 @@
 		@inputText(formItem("notas"), '_label -> "Notas:", 'placeholder -> "Digite o notas")
 		@inputText(formItem("importancia"), '_label -> "Importância:", 'placeholder -> "Digite o importância")
 		@inputText(formItem("estimativa"), '_label -> "Estimativa:", 'placeholder -> "Digite o estimativa")
-		<button id="addbtn" class="btn btn-primary" type="button">Salvar</button>
+		<button id="addbtn" class="btn btn-inverse" type="button">Adicionar</button>
 		</fieldset>
 	}
-	<h3>Listando intem de  backlog</h3>
+	<h3>Listando item de backlog</h3>
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -47,7 +47,10 @@
 		</tbody>
 	</table>
 
-
+	@form(routes.ItensBacklog.breakItem(itemBacklog.id)) {
+		<div id="hiddenInputs"></div>
+		<button class="btn btn-primary">Salvar</button>
+	}
 
 	<script>
 		function createHiddenInputs() {
