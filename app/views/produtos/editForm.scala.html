@@ -8,11 +8,13 @@
 @main("Welcome to Play 2.0") {
     
     @form(action = routes.Produtos.update(id)) {
-	
+	<fieldset>
+		<legend>Editando o produto</legend>
 		@inputText(formProduto("nome"), '_label -> "Nome:")
 		@inputText(formProduto("descricao"), '_label -> "Descrição:")
     
     	<button class="btn btn-primary" type="submit">Salvar</button>
+    	</fieldset>
     }
     
 }

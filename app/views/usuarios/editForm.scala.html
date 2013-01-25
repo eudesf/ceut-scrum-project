@@ -1,40 +1,12 @@
 @(id: Long, form: Form[Usuario], usuarios: List[Usuario])
-<head>
-<title>Editar Usuario</title>
-</head>
-<div class="navbar navbar-inverse navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container">
-			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			</a>
-			<a class="brand" href="#">Project Scrum Master</a>
-				<div class="nav-collapse collapse">
-					<ul class="nav">
-					<li class="active">
-					<a href="http://localhost:9000/">Home</a>
-					</li>
-					<li>
-						<a href="http://localhost:9000/produtos">Produtos</a>
-					</li>
-					<li>
-						<a href="http://localhost:9000/usuarios">Usuarios</a>
-					</li>	
-					</ul>
-				</div>
-		</div>
-	</div>
-</div>
-<div id="conteudo">
-<h1>Editar Usuarios</h1><hr/>
+@import helper.twitterBootstrap._
 @main("Editar Usuarios") {
     
     @helper.form(action = routes.Usuarios.update(id)) {
-	
-		@helper.inputText(form("nome"), '_label -> "Nome:")
-		Grupo:
+		<fieldset>
+		<legend>Cadastro de Produtos</legend>
+		@helper.inputText(form("nome"), '_label -> "Nome:", 'placeholder -> "Digite o nome")
+		Grupo:<br />
 		<select name="grupo">
 			<option>Equipe</option>
 			<option>Scrum Master</option>
@@ -42,7 +14,8 @@
     	</select>
 		<br/>
 		<br/>
-    	<button type="submit">Salvar</button>
+    	<button class="btn btn-primary" type="submit">Salvar</button>
+    	</fieldset>
     }
     
 }

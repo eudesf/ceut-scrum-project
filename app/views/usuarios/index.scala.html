@@ -1,39 +1,11 @@
 @(form: Form[Usuario], usuarios: List[Usuario])
-<head>
-<title>Cadastro de Usuarios</title>
-</head>
-<div class="navbar navbar-inverse navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container">
-			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			</a>
-			<a class="brand" href="#">Project Scrum Master</a>
-				<div class="nav-collapse collapse">
-					<ul class="nav">
-					<li class="active">
-					<a href="http://localhost:9000/">Home</a>
-					</li>
-					<li>
-						<a href="http://localhost:9000/produtos">Produtos</a>
-					</li>
-					<li>
-						<a href="http://localhost:9000/usuarios">Usuarios</a>
-					</li>	
-					</ul>
-				</div>
-		</div>
-	</div>
-</div>
-<div id="conteudo">
-<h1>Cadastro de Usuarios</h1><hr/>
+@import helper.twitterBootstrap._
 @main("Cadastro de Usuarios") {
   
     @helper.form(action = routes.Usuarios.submit) {
-
-	<p>@helper.inputText(form("nome"), '_label -> <b class="label_cadastro">Nome do Cliente</b>)</p>
+	<fieldset>
+		<legend>Cadastro de Produtos</legend>
+	<p>@helper.inputText(form("nome"), '_label -> "Nome:", 'placeholder -> "Digite o nome")
 		<b>Grupo</b><br/>
 		<select name="grupo">
 			<option>Equipe</option>
@@ -42,28 +14,29 @@
     	</select>
 		<br/>
 		<br/>
-    	<button type="submit">Salvar</button><hr/>
+    	<button class="btn btn-primary" type="submit">Salvar</button>
+    	</fieldset>
     }
     	
-   	<table>
+   	<table class="table table-hover">
    		<thead>
-    		<tr id="titulo_tabela">
-    			<th bgcolor='#333333'></th>
-    			<th bgcolor='#333333'>Nome</th>
-    			<th bgcolor='#333333'>Grupo</th>
+    		<tr>
+    			<th>Nome</th>
+    			<th>Grupo</th>
+    			<th>Opções</th>
     		</tr>
     	</thead>
     	<tbody>
 			@usuarios.map { usuario =>
     			<tr>
-    				<td>
-    					<a href="@routes.Usuarios.delete(usuario.id)">Excluir</a>
-    					<a href="@routes.Usuarios.editForm(usuario.id)">Editar</a></td>
     				<td>@usuario.nome</td>
 					<td>@usuario.grupo</td>
+					<td>
+    					<a href="@routes.Usuarios.delete(usuario.id)"><i class="icon-search icon-remove"></i>Excluir</a>
+    					<a href="@routes.Usuarios.editForm(usuario.id)"><i class="icon-search icon-edit"></i>Editar</a></td>
     			</tr>
    			}
    		</tbody>
    	</table>
-</div>
+
 }

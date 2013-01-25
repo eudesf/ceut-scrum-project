@@ -8,13 +8,16 @@
 @main("Welcome to Play 2.0") {
     
     @helper.form(action = routes.ItensBacklog.update(id), 'class -> "form-horizontal") {
-		@inputText(formItem("nome"), '_label -> "Nome:")
-		@inputText(formItem("descricao"), '_label -> "Descrição:")
-		@inputText(formItem("notas"), '_label -> "Notas:")
-		@inputText(formItem("importancia"), '_label -> "Importância:")
-		@inputText(formItem("estimativa"), '_label -> "Estimativa:")
+    <fieldset>
+		<legend>Editando o backlog</legend>
+		@inputText(formItem("nome"), '_label -> "Nome:", 'placeholder -> "Digite o nome")
+		@inputText(formItem("descricao"), '_label -> "Descrição:", 'placeholder -> "Digite a descrição")
+		@inputText(formItem("notas"), '_label -> "Notas:", 'placeholder -> "Digite a notas")
+		@inputText(formItem("importancia"), '_label -> "Importância:", 'placeholder -> "Digite a importância")
+		@inputText(formItem("estimativa"), '_label -> "Estimativa:", 'placeholder -> "Digite a estimativa")
 		
 		<button class="btn btn-primary" type="submit">Salvar</button>
+		</fieldset>
     }
     
 }

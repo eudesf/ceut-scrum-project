@@ -8,29 +8,32 @@
 @main("Welcome to Play 2.0") {
     
     @helper.form(action = routes.Produtos.create, 'class -> "form-horizontal") {
-	
-		@helper.inputText(formProduto("nome"), '_label -> "Nome:")
-		@helper.inputText(formProduto("descricao"), '_label -> "Descrição:")
+		<fieldset>
+		<legend>Cadastro de Produtos</legend>
+		@helper.inputText(formProduto("nome"), '_label -> "Nome:", 'placeholder -> "Digite o nome")
+		@helper.inputText(formProduto("descricao"), '_label -> "Descrição:", 'placeholder -> "Digite a descrição")
     
     	<button class="btn btn-primary" type="submit">Salvar</button>
+    	</fieldset>
     }
-    	
-   	<table class="table table-striped table-hover table-bordered">
+    <hr >
+    <h3>Listando produtos</h3>
+   	<table class="table table-hover">
    		<thead>
     		<tr>
-    			<th>Opções</th>
     			<th>Nome</th>
     			<th>Descrição</th>
+    			<th>Opções</th>
     		</tr>
     	</thead>
     	<tbody>
 			@produtos.map { produto =>
     			<tr>
-    				<td>
-    					<a href="@routes.Produtos.delete(produto.id)">Excluir</a>
-    					<a href="@routes.Produtos.editForm(produto.id)">Editar</a></td>
-    				<td><a href="@routes.ItensBacklog.index(produto.id)">@produto.nome</a></td>
+    				<td><a href="@routes.ItensBacklog.index(produto.id)"><i class="icon-search icon-pencil"></i>@produto.nome</a></td>
     				<td>@produto.descricao</td>
+    				<td>
+    					<a href="@routes.Produtos.delete(produto.id)"><i class="icon-search icon-remove"></i>Excluir</a>
+    					<a href="@routes.Produtos.editForm(produto.id)"><i class="icon-search icon-edit"></i>Editar</a></td>
     			</tr>
    			}
    		</tbody>

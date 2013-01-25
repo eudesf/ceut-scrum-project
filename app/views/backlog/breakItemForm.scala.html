@@ -8,60 +8,46 @@
 @main("") {
 
 	<h3>Item a ser quebrado:</h3>	
-	<table class="table">
-		<tbody>
-			<tr>
-				<td>Nome</td>
-				<td>@itemBacklog.nome</td>
-			</tr>
-			<tr>
-				<td>Descrição</td>
-				<td>@itemBacklog.descricao</td>
-			</tr>
-			<tr>
-				<td>Notas</td>
-				<td>@itemBacklog.notas</td>
-			</tr>
-			<tr>
-				<td>Importância</td>
-				<td>@itemBacklog.importancia</td>
-			</tr>
-			<tr>
-				<td>Estimativa</td>
-				<td>@itemBacklog.estimativa</td>
-			</tr>
-		</tbody>
-	</table>
+	<dl class="dl-horizontal">
+	<dt>Nome</dt>
+	<dd>@itemBacklog.nome</dd>
+	<dt>Descrição</dt>
+	<dd>@itemBacklog.descricao</dd>
+	<dt>Notas</dt>
+	<dd>@itemBacklog.notas</dd>
+	<dt>Importância</dt>
+	<dd>@itemBacklog.importancia</dd>
+	<dt>Estimativa</dt>
+	<dd>@itemBacklog.estimativa</dd>
+</dl>
 	
-	<h3>Novos Itens:</h3>
-
 	@form(routes.ItensBacklog.fake, 'class -> "form-horizontal", 'id -> "breakItemsForm") {
-		@inputText(formItem("nome"), '_label -> "Nome:")
-		@inputText(formItem("descricao"), '_label -> "Descrição:")
-		@inputText(formItem("notas"), '_label -> "Notas:")
-		@inputText(formItem("importancia"), '_label -> "Importância:")
-		@inputText(formItem("estimativa"), '_label -> "Estimativa:")
-		<button id="addbtn" class="btn btn-inverse" type="button">Adicionar</button>		
+		<fieldset>
+		<legend>Cadastro do item de Backlog</legend>
+		@inputText(formItem("nome"), '_label -> "Nome:", 'placeholder -> "Digite o nome")
+		@inputText(formItem("descricao"), '_label -> "Descrição:", 'placeholder -> "Digite o descrição")
+		@inputText(formItem("notas"), '_label -> "Notas:", 'placeholder -> "Digite o notas")
+		@inputText(formItem("importancia"), '_label -> "Importância:", 'placeholder -> "Digite o importância")
+		@inputText(formItem("estimativa"), '_label -> "Estimativa:", 'placeholder -> "Digite o estimativa")
+		<button id="addbtn" class="btn btn-primary" type="button">Salvar</button>
+		</fieldset>
 	}
-
-	<table class="table table-striped table-hover table-bordered">
+	<h3>Listando intem de  backlog</h3>
+	<table class="table table-hover">
 		<thead>
 			<tr>
-				<td>Nome</td>
-				<td>Descrição</td>
-				<td>Notas</td>
-				<td>Importância</td>
-				<td>Estimativa</td>
+				<th>Nome</th>
+				<th>Descrição</th>
+				<th>Notas</th>
+				<th>Importância</th>
+				<th>Estimativa</th>
 			</tr>
 		</thead>
 		<tbody id="itemsTableBody">
 		</tbody>
 	</table>
 
-	@form(routes.ItensBacklog.breakItem(itemBacklog.id), 'class -> "form-horizontal") {
-		<div id="hiddenInputs"></div>
-		<button id="addbtn" class="btn btn-primary">Salvar</button>
-	}
+
 
 	<script>
 		function createHiddenInputs() {
