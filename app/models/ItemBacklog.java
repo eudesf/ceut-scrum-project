@@ -32,4 +32,12 @@ public class ItemBacklog extends Model {
 	public static Finder<Long, ItemBacklog> find = new Finder<Long, ItemBacklog>(
 			Long.class, ItemBacklog.class);
 
+	@Override
+	public String toString() {
+		return "ItemBacklog [id=" + id + ", produto=" + produto + ", nome="
+				+ nome + ", descricao=" + descricao + ", notas=" + notas
+				+ ", importancia=" + importancia + ", estimativa=" + estimativa
+				+ "]";
+	}
+	
 }

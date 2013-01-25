@@ -27,7 +27,8 @@
 			@itens.map { item =>
 				<tr>
 					<td><a href="@routes.ItensBacklog.delete(item.id)">Excluir</a>
-						<a href="@routes.ItensBacklog.editForm(item.id)">Editar</a></td>
+						<a href="@routes.ItensBacklog.editForm(item.id)">Editar</a>
+						<a href="@routes.ItensBacklog.breakItemForm(item.id)">Quebrar</a></td>
 					<td>@item.nome</td>
 					<td>@item.descricao</td>
 					<td>@item.notas</td>

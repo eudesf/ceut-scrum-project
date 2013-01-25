@@ -21,9 +21,18 @@ create table produto (
   constraint pk_produto primary key (id))
 ;
 
+create table usuario (
+  id                        bigint not null,
+  nome                      varchar(255),
+  grupo                     varchar(255),
+  constraint pk_usuario primary key (id))
+;
+
 create sequence item_backlog_seq;
 
 create sequence produto_seq;
+
+create sequence usuario_seq;
 
 alter table item_backlog add constraint fk_item_backlog_produto_1 foreign key (produto_id) references produto (id) on delete restrict on update restrict;
 create index ix_item_backlog_produto_1 on item_backlog (produto_id);
@@ -38,9 +47,13 @@ drop table if exists item_backlog;
 
 drop table if exists produto;
 
+drop table if exists usuario;
+
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists item_backlog_seq;
 
 drop sequence if exists produto_seq;
+
+drop sequence if exists usuario_seq;
 

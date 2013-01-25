@@ -1,0 +1,68 @@
+@(item: ItemBacklog, form: Form[ItemBacklog], itens: List[ItemBacklog])
+
+@main("") {
+
+	<h3>Item a ser quebrado:</h3>	
+	<table>
+		<tbody>
+			<tr>
+				<td>Nome</td>
+				<td>@item.nome</td>
+			</tr>
+			<tr>
+				<td>Descrição</td>
+				<td>@item.descricao</td>
+			</tr>
+			<tr>
+				<td>Notas</td>
+				<td>@item.notas</td>
+			</tr>
+			<tr>
+				<td>Importância</td>
+				<td>@item.importancia</td>
+			</tr>
+			<tr>
+				<td>Estimativa</td>
+				<td>@item.estimativa</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	@helper.form(routes.ItensBacklog.breakItem(item.id)) {
+		@helper.inputText(form("nome"), '_label -> "Nome:")
+		@helper.inputText(form("descricao"), '_label -> "Descrição:")
+		@helper.inputText(form("notas"), '_label -> "Notas:")
+		@helper.inputText(form("importancia"), '_label -> "Importância:")
+		@helper.inputText(form("estimativa"), '_label -> "Estimativa:")
+
+		<button type="submit">Salvar</button>		
+	}
+
+	<h3>Novos Itens:</h3>
+	<table>
+		<thead>
+			<tr>
+				<td>Id</td>
+				<td>Nome</td>
+				<td>Descrição</td>
+				<td>Notas</td>
+				<td>Importância</td>
+				<td>Estimativa</td>
+			</tr>
+		</thead>
+		<tbody>
+			@itens.map { it =>
+				<tr>
+					<td>@it.id</td>
+					<td>@it.nome</td>
+					<td>@it.descricao</td>
+					<td>@it.notas</td>
+					<td>@it.importancia</td>
+					<td>@it.estimativa</td>
+				</tr>	
+			}
+		</tbody>
+	</table>
+
+
+}

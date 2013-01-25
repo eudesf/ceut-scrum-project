@@ -18,8 +18,17 @@ POST    /backlog/:produtoId           controllers.ItensBacklog.create(produtoId:
 GET     /backlog/item/:id/delete      controllers.ItensBacklog.delete(id: Long)
 GET     /backlog/item/:id             controllers.ItensBacklog.editForm(id: Long)
 POST    /backlog/item/:id             controllers.ItensBacklog.update(id: Long)
+ 
+# Divisão de Itens de Backlog
+GET     /backlog/item/:id/break      controllers.ItensBacklog.breakItemForm(id: Long)
+POST    /backlog/item/:id/break      controllers.ItensBacklog.breakItem(id: Long)
 
-
+# Usuarios
+GET	    /usuarios                   controllers.Usuarios.blank()
+GET     /usuarios/:id               controllers.Usuarios.editForm(id: Long)
+POST    /usuarios                   controllers.Usuarios.submit()
+GET     /usuarios/:id/delete        controllers.Usuarios.delete(id: Long)
+POST    /usuarios/:id               controllers.Usuarios.update(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                 controllers.Assets.at(path="/public", file)

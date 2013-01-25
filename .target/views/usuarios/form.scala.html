@@ -1,0 +1,41 @@
+@(form: Form[Usuario], usuarios: List[Usuario])
+
+@main("Welcome to Play 2.0") {
+  
+    @helper.form(action = routes.Usuarios.submit) {
+
+		@helper.inputText(form("nome"), '_label -> "Nome:")
+		Grupo:
+		<select name="grupo">
+			<option>Equipe</option>
+			<option>Scrum Master</option>
+			<option>Dono Produto</option>
+    	</select>
+		<br/>
+		<br/>
+    	<button type="submit">Salvar</button>
+    }
+    	
+   	<table>
+   		<thead>
+    		<tr>
+    			<th>Opcoes</th>
+    			<th>Nome</th>
+    			<th>Grupo</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+			@usuarios.map { usuario =>
+    			<tr>
+    				<td>
+    					<a href="@routes.Usuarios.delete(usuario.id)">Excluir</a>
+    					<a href="@routes.Usuarios.editForm(usuario.id)">Editar</a></td>
+    				<td>@usuario.nome</td>
+					<td>@usuario.grupo</td>
+    				
+    			</tr>
+   			}
+   		</tbody>
+   	</table>
+    
+}
