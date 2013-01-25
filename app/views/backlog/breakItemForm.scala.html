@@ -1,48 +1,52 @@
-@(item: ItemBacklog, form: Form[ItemBacklog], itens: List[ItemBacklog])
+@(itemBacklog: ItemBacklog, formItem: Form[ItemBacklog])
+
+@import helper._
+@import twitterBootstrapHelper._
+
+@implicitField = @{ FieldConstructor( twitterFieldConstructor.f ) }
 
 @main("") {
 
 	<h3>Item a ser quebrado:</h3>	
-	<table>
+	<table class="table">
 		<tbody>
 			<tr>
 				<td>Nome</td>
-				<td>@item.nome</td>
+				<td>@itemBacklog.nome</td>
 			</tr>
 			<tr>
 				<td>Descrição</td>
-				<td>@item.descricao</td>
+				<td>@itemBacklog.descricao</td>
 			</tr>
 			<tr>
 				<td>Notas</td>
-				<td>@item.notas</td>
+				<td>@itemBacklog.notas</td>
 			</tr>
 			<tr>
 				<td>Importância</td>
-				<td>@item.importancia</td>
+				<td>@itemBacklog.importancia</td>
 			</tr>
 			<tr>
 				<td>Estimativa</td>
-				<td>@item.estimativa</td>
+				<td>@itemBacklog.estimativa</td>
 			</tr>
 		</tbody>
 	</table>
 	
-	@helper.form(routes.ItensBacklog.breakItem(item.id)) {
-		@helper.inputText(form("nome"), '_label -> "Nome:")
-		@helper.inputText(form("descricao"), '_label -> "Descrição:")
-		@helper.inputText(form("notas"), '_label -> "Notas:")
-		@helper.inputText(form("importancia"), '_label -> "Importância:")
-		@helper.inputText(form("estimativa"), '_label -> "Estimativa:")
+	<h3>Novos Itens:</h3>
 
-		<button type="submit">Salvar</button>		
+	@form(routes.ItensBacklog.fake, 'class -> "form-horizontal", 'id -> "breakItemsForm") {
+		@inputText(formItem("nome"), '_label -> "Nome:")
+		@inputText(formItem("descricao"), '_label -> "Descrição:")
+		@inputText(formItem("notas"), '_label -> "Notas:")
+		@inputText(formItem("importancia"), '_label -> "Importância:")
+		@inputText(formItem("estimativa"), '_label -> "Estimativa:")
+		<button id="addbtn" class="btn btn-inverse" type="button">Adicionar</button>		
 	}
 
-	<h3>Novos Itens:</h3>
-	<table>
+	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
-				<td>Id</td>
 				<td>Nome</td>
 				<td>Descrição</td>
 				<td>Notas</td>
@@ -50,19 +54,57 @@
 				<td>Estimativa</td>
 			</tr>
 		</thead>
-		<tbody>
-			@itens.map { it =>
-				<tr>
-					<td>@it.id</td>
-					<td>@it.nome</td>
-					<td>@it.descricao</td>
-					<td>@it.notas</td>
-					<td>@it.importancia</td>
-					<td>@it.estimativa</td>
-				</tr>	
-			}
+		<tbody id="itemsTableBody">
 		</tbody>
 	</table>
+
+	@form(routes.ItensBacklog.breakItem(itemBacklog.id), 'class -> "form-horizontal") {
+		<div id="hiddenInputs"></div>
+		<button id="addbtn" class="btn btn-primary">Salvar</button>
+	}
+
+	<script>
+		function createHiddenInputs() {
+			var out = "";
+			for (var i in itens) {
+				out = out + '<input type="hidden" name="itens[' + i + '].nome" value="' + itens[i][0].value + '"/>';
+				out = out + '<input type="hidden" name="itens[' + i + '].descricao" value="' + itens[i][1].value + '"/>';
+				out = out + '<input type="hidden" name="itens[' + i + '].notas" value="' + itens[i][2].value + '"/>';
+				out = out + '<input type="hidden" name="itens[' + i + '].importancia" value="' + itens[i][3].value + '"/>';
+				out = out + '<input type="hidden" name="itens[' + i + '].estimativa" value="' + itens[i][4].value + '"/>';
+			}
+			$("#hiddenInputs").html(out);
+		}
+		
+		function createTableBody() {
+			var out = "";
+			for (var i in itens) {
+				out = out + "<tr>"; 
+				out = out + '<td>' + itens[i][0].value + '</td>';
+				out = out + '<td>' + itens[i][1].value + '</td>';
+				out = out + '<td>' + itens[i][2].value + '</td>';
+				out = out + '<td>' + itens[i][3].value + '</td>';
+				out = out + '<td>' + itens[i][4].value + '</td>';
+				out = out + "</tr>";
+			}
+			$("#itemsTableBody").html(out);
+		}
+		
+		$("#addbtn").click(function() {
+
+			if ($.trim($("input[name='nome']").val()) == "") {
+				alert("Nome não informado!");
+				return;
+			}
+			if (typeof itens == 'undefined') {
+				itens = [];
+			}
+			itens[itens.length] = $("#breakItemsForm").serializeArray();
+		 	createHiddenInputs();
+		 	createTableBody();
+		 	$("#breakItemsForm").get(0).reset();
+		});
+	</script>
 
 
 }

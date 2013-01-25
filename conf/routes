@@ -18,6 +18,7 @@ POST    /backlog/:produtoId           controllers.ItensBacklog.create(produtoId:
 GET     /backlog/item/:id/delete      controllers.ItensBacklog.delete(id: Long)
 GET     /backlog/item/:id             controllers.ItensBacklog.editForm(id: Long)
 POST    /backlog/item/:id             controllers.ItensBacklog.update(id: Long)
+GET     /backlog/fake                 controllers.ItensBacklog.fake()
  
 # Divisão de Itens de Backlog
 GET     /backlog/item/:id/break      controllers.ItensBacklog.breakItemForm(id: Long)

@@ -1,15 +1,20 @@
-@(id: Long, form: Form[ItemBacklog])
+@(id: Long, formItem: Form[ItemBacklog])
+
+@import helper._
+@import twitterBootstrapHelper._
+
+@implicitField = @{ FieldConstructor( twitterFieldConstructor.f ) }
 
 @main("Welcome to Play 2.0") {
     
-    @helper.form(action = routes.ItensBacklog.update(id)) {
-		@helper.inputText(form("nome"), '_label -> "Nome:")
-		@helper.inputText(form("descricao"), '_label -> "Descrição:")
-		@helper.inputText(form("notas"), '_label -> "Notas:")
-		@helper.inputText(form("importancia"), '_label -> "Importância:")
-		@helper.inputText(form("estimativa"), '_label -> "Estimativa:")
+    @helper.form(action = routes.ItensBacklog.update(id), 'class -> "form-horizontal") {
+		@inputText(formItem("nome"), '_label -> "Nome:")
+		@inputText(formItem("descricao"), '_label -> "Descrição:")
+		@inputText(formItem("notas"), '_label -> "Notas:")
+		@inputText(formItem("importancia"), '_label -> "Importância:")
+		@inputText(formItem("estimativa"), '_label -> "Estimativa:")
 		
-		<button type="submit">Salvar</button>
+		<button class="btn btn-primary" type="submit">Salvar</button>
     }
     
 }

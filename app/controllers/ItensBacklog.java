@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import models.ItemBacklog;
@@ -9,14 +8,17 @@ import models.Produto;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.backlog.*;
+import views.html.backlog.breakItemForm;
+import views.html.backlog.editForm;
+import views.html.backlog.index;
 
 public class ItensBacklog extends Controller {
 
 	public static Form<ItemBacklog> formItem = form(ItemBacklog.class);
 	public static String lastOrderBy = "nome asc";
 	public static final String BREAK_ITEMS_KEY = "break-items";
-	
+	public static List<ItemBacklog> itensToAdd = new ArrayList<ItemBacklog>();
+
 	private static List<ItemBacklog> listaItensBacklog(Long produtoId) {
 		Produto produto = Produto.find.ref(produtoId);
 		return ItemBacklog.find.where().eq("produto", produto).orderBy(lastOrderBy).findList();
@@ -65,42 +67,23 @@ public class ItensBacklog extends Controller {
 	}
 	
 	public static Result breakItemForm(Long id) {
-		session().remove(BREAK_ITEMS_KEY);
-		ItemBacklog item = ItemBacklog.find.ref(id);
-		System.out.println(item);
-		return ok(breakItemForm.render(item, formItem, obtemItensQuebrados()));
+		ItemBacklog item = ItemBacklog.find.byId(id);
+		return ok(breakItemForm.render(item, formItem));
 	}
 
-	private static List<ItemBacklog> obtemItensQuebrados() {
-		String itensSession = session(BREAK_ITEMS_KEY);
-		if (itensSession == null) {
-			return new ArrayList<ItemBacklog>();
+	public static Result breakItem(Long id) {
+		ItemBacklog itemBacklog = ItemBacklog.find.byId(id);
+		Produto produto = itemBacklog.produto;
+		BreakItemsForm formItens = form(BreakItemsForm.class).bindFromRequest().get();
+		for (ItemBacklog item : formItens.itens) {
+			item.produto = produto;
+			item.save();
 		}
-		List<String> itensId = Arrays.asList(itensSession.split(","));
-		List<ItemBacklog> result = new ArrayList<ItemBacklog>();
-		for (String id : itensId) {
-			result.add(ItemBacklog.find.ref(Long.valueOf(id)));
-		}
-		return result;
+		itemBacklog.delete();
+		return ItensBacklog.index(produto.id, lastOrderBy);
 	}
 	
-	public static Result breakItem(Long id) {
-		ItemBacklog itemBacklog = ItemBacklog.find.ref(id);
-		Long produtoId = itemBacklog.produto.id;
-		Form<ItemBacklog> formAux = formItem.bindFromRequest();
-		if (formAux.hasErrors()) {
-			return badRequest(index.render(produtoId, formAux, obtemItensQuebrados()));
-		} else {
-			ItemBacklog item = formAux.get();
-			item.produto = Produto.find.ref(produtoId);
-			item.save();
-			String itens = session(BREAK_ITEMS_KEY);
-			if (itens == null) {
-				session(BREAK_ITEMS_KEY, String.valueOf(item.id));
-			} else {
-				session(BREAK_ITEMS_KEY, itens + "," + item.id);
-			}
-			return ok(breakItemForm.render(itemBacklog, formItem, obtemItensQuebrados()));
-		}
+	public static Result fake() {
+		return TODO;
 	}
 }

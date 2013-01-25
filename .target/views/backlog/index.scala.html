@@ -1,18 +1,23 @@
-@(produtoId: Long, form: Form[ItemBacklog], itens: List[ItemBacklog])
+@(produtoId: Long, formItem: Form[ItemBacklog], itens: List[ItemBacklog])
+
+@import helper._
+@import twitterBootstrapHelper._
+
+@implicitField = @{ FieldConstructor( twitterFieldConstructor.f ) }
 
 @main("") {
 
-	@helper.form(action = routes.ItensBacklog.create(produtoId)) {
-		@helper.inputText(form("nome"), '_label -> "Nome:")
-		@helper.inputText(form("descricao"), '_label -> "Descrição:")
-		@helper.inputText(form("notas"), '_label -> "Notas:")
-		@helper.inputText(form("importancia"), '_label -> "Importância:")
-		@helper.inputText(form("estimativa"), '_label -> "Estimativa:")
+	@form(action = routes.ItensBacklog.create(produtoId), 'class -> "form-horizontal") {
+		@inputText(formItem("nome"), '_label -> "Nome:")
+		@inputText(formItem("descricao"), '_label -> "Descrição:")
+		@inputText(formItem("notas"), '_label -> "Notas:")
+		@inputText(formItem("importancia"), '_label -> "Importância:")
+		@inputText(formItem("estimativa"), '_label -> "Estimativa:")
 		
-		<button type="submit">Salvar</button>
+		<button class="btn btn-primary" type="submit">Salvar</button>
 	}
 
-	<table>
+	<table class="table table-striped table-hover table-bordered">
 		<thead>
 			<tr>
 				<td>Opções</td>
@@ -26,9 +31,9 @@
 		<tbody>
 			@itens.map { item =>
 				<tr>
-					<td><a href="@routes.ItensBacklog.delete(item.id)">Excluir</a>
-						<a href="@routes.ItensBacklog.editForm(item.id)">Editar</a>
-						<a href="@routes.ItensBacklog.breakItemForm(item.id)">Quebrar</a></td>
+					<td><a href="@routes.ItensBacklog.delete(item.id)"><i class="icon-remove"></i></a>
+						<a href="@routes.ItensBacklog.editForm(item.id)"><i class="icon-pencil"></i></a>
+						<a href="@routes.ItensBacklog.breakItemForm(item.id)"><i class="icon-indent-left"></i></a></td>
 					<td>@item.nome</td>
 					<td>@item.descricao</td>
 					<td>@item.notas</td>

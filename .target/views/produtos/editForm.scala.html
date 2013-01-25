@@ -1,13 +1,18 @@
-@(id: Long, form: Form[Produto], produtos: List[Produto])
+@(id: Long, formProduto: Form[Produto], produtos: List[Produto])
+
+@import helper._
+@import twitterBootstrapHelper._
+
+@implicitField = @{ FieldConstructor( twitterFieldConstructor.f ) }
 
 @main("Welcome to Play 2.0") {
     
-    @helper.form(action = routes.Produtos.update(id)) {
+    @form(action = routes.Produtos.update(id)) {
 	
-		@helper.inputText(form("nome"), '_label -> "Nome:")
-		@helper.inputText(form("descricao"), '_label -> "Descrição:")
+		@inputText(formProduto("nome"), '_label -> "Nome:")
+		@inputText(formProduto("descricao"), '_label -> "Descrição:")
     
-    	<button type="submit">Salvar</button>
+    	<button class="btn btn-primary" type="submit">Salvar</button>
     }
     
 }
