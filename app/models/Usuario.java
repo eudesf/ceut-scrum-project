@@ -18,7 +18,6 @@ public class Usuario extends Model{
 	@Constraints.Required
 	public String nome;
 	
-	
 	public String grupo;
 	
 	public static Finder<Long, Usuario> find = new Finder<Long, Usuario>(
@@ -29,6 +28,9 @@ public class Usuario extends Model{
 		return "Usuario [id=" + id + ", nome=" + nome + ", Grupo="
 				+ grupo + "]";
 	}
-	
+
+	public void setNome(String nome) {
+		this.nome = nome.trim();
+	}
 	
 }

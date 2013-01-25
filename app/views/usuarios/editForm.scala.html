@@ -1,20 +1,23 @@
-@(id: Long, form: Form[Usuario], usuarios: List[Usuario])
-@import helper.twitterBootstrap._
+@(id: Long, formUsuario: Form[Usuario], usuarios: List[Usuario])
+
+@import helper._
+@import twitterBootstrapHelper._
+
+@implicitField = @{ FieldConstructor( twitterFieldConstructor.f ) }
+
 @main("Editar Usuarios") {
     
-    @helper.form(action = routes.Usuarios.update(id)) {
+@form(action = routes.Usuarios.update(id), 'class -> "form-horizontal") {
 		<fieldset>
-		<legend>Cadastro de Produtos</legend>
-		@helper.inputText(form("nome"), '_label -> "Nome:", 'placeholder -> "Digite o nome")
-		Grupo:<br />
-		<select name="grupo">
-			<option>Equipe</option>
-			<option>Scrum Master</option>
-			<option>Dono Produto</option>
-    	</select>
-		<br/>
-		<br/>
-    	<button class="btn btn-primary" type="submit">Salvar</button>
+			<legend>Cadastro de Usuários</legend>
+
+			@inputText(formUsuario("nome"), '_label -> "Nome:", 'placeholder -> "Digite o nome")
+
+			@select(formUsuario("grupo"),
+				options( Seq("Equipe", "Scrum Master", "Dono Produto")), '_label -> "Grupo:")
+
+			<br/>
+			<button class="btn btn-primary" type="submit">Salvar</button>
     	</fieldset>
     }
     
